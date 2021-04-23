@@ -4,9 +4,7 @@ Title: Search for JIS codes by Address
 Version: 0.0.0.9000
 Author: indenkun
 Maintainer: indenkun <bolg@indenkun.hatenabolg.com>
-Description: It includes a function that allows you to get the JIS code 
-    by entering an address of japan that includes the name of the prefecture and
-    city.
+Description: Utilities to support mutual conversion between JIS codes and addresses.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

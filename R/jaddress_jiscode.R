@@ -5,9 +5,9 @@
 #' The address must be in Japanese, and the name of the prefecture, city, town, or village must be in kanji.
 #' The name of the prefecture must be complete, such as "Akita-ken", and the name of the municipality must end with a string, such as "Akita-shi".
 #'
-#' @param x Input vector. address strings.
-#' @param jis Selecting "city" will output the group code up to the city, and selecting "pref" will output the group code up to the prefecture.
-#' @param check.digit a logical value. If set to TRUE, the 6th digit check digit will be displayed.
+#' @param x a vector. address strings.
+#' @param jis Selecting \code{"city"} will output the group code up to the city, and selecting \code{"pref"} will output the group code up to the prefecture.
+#' @param check.digit a logical value. If set to \code{TRUE}, the 6th digit check digit will be displayed.
 #'
 #' @return a charactor.
 #'

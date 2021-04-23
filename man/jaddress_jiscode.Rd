@@ -7,11 +7,11 @@
 jaddress_jiscode(x, jis = c("city", "pref"), check.digit = FALSE)
 }
 \arguments{
-\item{x}{Input vector. address strings.}
+\item{x}{a vector. address strings.}
 
-\item{jis}{Selecting "city" will output the group code up to the city, and selecting "pref" will output the group code up to the prefecture.}
+\item{jis}{Selecting \code{"city"} will output the group code up to the city, and selecting \code{"pref"} will output the group code up to the prefecture.}
 
-\item{check.digit}{a logical value. If set to TRUE, the 6th digit check digit will be displayed.}
+\item{check.digit}{a logical value. If set to \code{TRUE}, the 6th digit check digit will be displayed.}
 }
 \value{
 a charactor.

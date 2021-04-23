@@ -6,7 +6,7 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-`{jaddress.jiscode}`はRで漢字の都道府県名と市区町村名を含む住所を入力すると総務省の割り当てた全国地方公共団体コード（市区町村コード、JISコード）（以下団体コード）を出力ための`jaddress_jiscode()`関数を含むパッケージです。
+`{jaddress.jiscode}`は住所と総務省の割り当てた全国地方公共団体コード（市区町村コード、JISコード）（以下団体コード）の相互変換をサポートするパッケージです。
 
 ## Installation
 
@@ -19,11 +19,13 @@ remotes::install_github("indenkun/jaddress.jiscode")
 
 ## Example
 
-このパッケージは都道府県と市町村名を含む住所から団体コードを出力するため`address_jiscode()`の単一の関数からなります。
-
 ``` r
 library(jaddress.jiscode)
 ```
+
+### `jaddress_jiscode()`
+
+`address_jiscode()`は都道府県と市町村名を含む住所から団体コードを出力するための関数です。
 
 都道府県名（漢字）と市町村名（漢字）を含む住所を入力すると団体コード（文字列）を出力します。
 
@@ -111,10 +113,55 @@ jaddress_jiscode("沖縄県那覇市", check.digit = TRUE)
 #> [1] "472018"
 ```
 
+### `jiscode_jaddres()`
+
+`jiscode_jaddres()`は団体コードを入力することで当該都道府県市区町村名を出力する関数です。
+
+``` r
+jiscode_jaddress("39201")
+#> [1] "高知県高知市"
+```
+
+団体コードは半角数字２桁（都道府県コードのみ）、５桁（市区町村コード）、６桁（チェックディジットを含む）のみを受け付けます。それ以外は受け付けません。
+
+``` r
+jiscode_jaddress("1")
+#> Warning in .f(.x[[1L]], .y[[1L]], ...): Please enter the JIS code as a 2-digit,
+#> 5-digit, or 6-digit value.
+#> [1] NA
+jiscode_jaddress("０１")
+#> Warning in .f(.x[[1L]], .y[[1L]], ...): JIS codes are only accepted if they
+#> consist of only half-width numbers.
+#> [1] NA
+```
+
+団体コードが全角のデータをたまに見かけますが、本関数ではサポートしていないので事前に`{stringi}`の`stri_trans_general()`などを使って、半角のデータに変換してください。
+
+``` r
+# 全角数字で構成されたデータを半角数字に変換して都道府県市区町村名を求める例
+example.data <- c("１３１１６４", "０４２１３７")
+require(stringi)
+#> Loading required package: stringi
+example.data <- stri_trans_general(example.data, "Fullwidth-Halfwidth")
+jiscode_jaddress(example.data)
+#> [1] "東京都豊島区" "宮城県栗原市"
+```
+
+デフォルトでは都道府県+市区町村名となっていますが、`jis = "city"`とすると市区町村名のみ、`jis = "pref"`とすると都道府県名のみを出力するようにできます。
+
+``` r
+jiscode_jaddress("204137")
+#> [1] "長野県天龍村"
+jiscode_jaddress("204137", jis = "city")
+#> [1] "天龍村"
+jiscode_jaddress("204137", jis = "pref")
+#> [1] "長野県"
+```
+
 ## Notice
 
-市区町村名だけで団体コードを返すことについては、共通する市区町村名を有する複数の都道府県があるため正しく一意に団体コードを求めるためには都道府県情報が必須となっています。
-ただし、全国に一箇所しか無い市区町村名も多いので、そういう市町村名が入力されたときには一意に団体コードを求められるのでその結果を出力しています。
+`jaddres_jiscode()`は全国に同じ市区町村名を有する複数の都道府県があるため正しく一意に団体コードを求めるためには都道府県情報が必須となっています。
+ただし、全国に一箇所しか無い市区町村名も多いので、そういった市町村名が入力されたときには一意に団体コードを求められるのでその結果を出力しています。
 
 市区町村よりも細かい区分の住所は一切参照していないので、都道府県+市区町村名が正しければ団体コードを出力します。そのため入力された住所が実際に存在するかどうかは判定していません。
 
