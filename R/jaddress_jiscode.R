@@ -44,17 +44,23 @@ jaddress_jiscode <- function(x, jis = c("city", "pref"), check.digit = FALSE){
         jis_code <- city_list$jis_code[stringr::str_detect(city_name, city_list$city)]
       }
     }else if(is.na(pref_name)){
-      if(sum(stringr::str_detect(city_name, japanJIS$city)) == 1) jis_code <- japanJIS$jis_code[stringr::str_detect(city_name, japanJIS$city)]
-      else{
-        warning("It seems that the address was not narrowed down to a single jis code or was not in a searchable format.")
-        return(NA)
+      jis_code <- japanJIS$jis_code[japanJIS$city == city_name]
+      if(purrr::is_empty(jis_code)){
+        if(sum(stringr::str_detect(city_name, japanJIS$city)) == 1) jis_code <- japanJIS$jis_code[stringr::str_detect(city_name, japanJIS$city)]
+        else{
+          warning("It seems that the address was not narrowed down to a single jis code or was not in a searchable format.")
+          return(NA)
+        }
       }
     }else if(is.na(city_name)){
-      if(sum(stringr::str_detect(pref_name, japanJIS$prefecture)) >= 1){
-        jis_code <- japanJIS$jis_code[min(which(stringr::str_detect(pref_name, japanJIS$prefecture)))]
-      }else{
-        warning("It seems that the address was not narrowed down to a single jis code or was not in a searchable format.")
-        return(NA)
+      jis_code <- japanJIS$jis_code[min(which(japanJIS$prefecture == pref_name))]
+      if(purrr::is_empty(jis_code)){
+        if(sum(stringr::str_detect(pref_name, japanJIS$prefecture)) >= 1){
+          jis_code <- japanJIS$jis_code[min(which(stringr::str_detect(pref_name, japanJIS$prefecture)))]
+        }else{
+          warning("It seems that the address was not narrowed down to a single jis code or was not in a searchable format.")
+          return(NA)
+        }
       }
     }
 
