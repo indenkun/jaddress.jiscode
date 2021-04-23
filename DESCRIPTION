@@ -1,0 +1,19 @@
+Package: jaddress.jiscode
+Type: Package
+Title: Search for JIS codes by Address
+Version: 0.0.0.9000
+Author: indenkun
+Maintainer: indenkun <bolg@indenkun.hatenabolg.com>
+Description: It includes a function that allows you to get the JIS code 
+    by entering an address of japan that includes the name of the prefecture and
+    city.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Depends: 
+    R (>= 2.10)
+Imports: 
+    stringr,
+    purrr,
+    zipangu
+RoxygenNote: 7.1.1
