@@ -21,7 +21,7 @@
 
 jaddress_jiscode <- function(x, jis = c("city", "pref"), check.digit = FALSE){
   jis <- match.arg(jis)
-  if(!is.logical(check.digit)){
+  if(!purrr::is_logical(check.digit, n = 1)){
     warning("Only logical type of 'check.digit' is accepted.")
     return(NA)
   }
