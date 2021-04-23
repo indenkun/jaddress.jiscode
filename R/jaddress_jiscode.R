@@ -7,6 +7,7 @@
 #'
 #' @param x Input vector. address strings.
 #' @param jis Selecting "city" will output the group code up to the city, and selecting "pref" will output the group code up to the prefecture.
+#' @param check.digit a logical value. If set to TRUE, the 6th digit check digit will be displayed.
 #'
 #' @return a charactor.
 #'
@@ -18,10 +19,14 @@
 #'
 #' @export
 
-jaddress_jiscode <- function(x, jis = c("city", "pref")){
+jaddress_jiscode <- function(x, jis = c("city", "pref"), check.digit = FALSE){
   jis <- match.arg(jis)
+  if(!is.logical(check.digit)){
+    warning("Only logical type of 'check.digit' is accepted.")
+    return(NA)
+  }
 
-  purrr::map2_chr(x, jis, function(x, jis){
+  purrr::map2_chr(x, jis, function(x, jis, check.digit){
     pref_name <- zipangu::separate_address(x)$prefecture
     city_name <- zipangu::separate_address(x)$city
 
@@ -29,6 +34,8 @@ jaddress_jiscode <- function(x, jis = c("city", "pref")){
       warning("The address is not in a searchable form for jis codes.")
       return(NA)
     }
+
+    if(!is.na(city_name)) japanJIS <- japanJIS[!is.na(japanJIS$city),]
 
     if(!is.na(pref_name) && !is.na(city_name)){
       jis_code <- japanJIS$jis_code[(japanJIS$prefecture == pref_name & japanJIS$city == city_name)]
@@ -45,7 +52,6 @@ jaddress_jiscode <- function(x, jis = c("city", "pref")){
     }else if(is.na(city_name)){
       if(sum(stringr::str_detect(pref_name, japanJIS$prefecture)) >= 1){
         jis_code <- japanJIS$jis_code[min(which(stringr::str_detect(pref_name, japanJIS$prefecture)))]
-        jis_code <- stringr::str_c(stringr::str_sub(jis_code, 1, 2), "0000")
       }else{
         warning("It seems that the address was not narrowed down to a single jis code or was not in a searchable format.")
         return(NA)
@@ -57,7 +63,9 @@ jaddress_jiscode <- function(x, jis = c("city", "pref")){
       return(NA)
     }
 
+    if(!check.digit) jis_code <- stringr::str_sub(jis_code, 1, 5)
+
     if(jis == "city") jis_code
     else if(jis == "pref") stringr::str_sub(jis_code, 1, 2)
-  })
+  }, check.digit = check.digit)
 }

@@ -4,12 +4,14 @@
 \alias{jaddress_jiscode}
 \title{Search for JIS codes by Address}
 \usage{
-jaddress_jiscode(x, jis = c("city", "pref"))
+jaddress_jiscode(x, jis = c("city", "pref"), check.digit = FALSE)
 }
 \arguments{
 \item{x}{Input vector. address strings.}
 
 \item{jis}{Selecting "city" will output the group code up to the city, and selecting "pref" will output the group code up to the prefecture.}
+
+\item{check.digit}{a logical value. If set to TRUE, the 6th digit check digit will be displayed.}
 }
 \value{
 a charactor.

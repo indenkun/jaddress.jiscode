@@ -7,7 +7,7 @@
 data.url <- "https://www.soumu.go.jp/main_content/000730858.xlsx"
 httr::GET(data.url, httr::write_disk(data.excel <- tempfile(fileext = ".xlsx")))
 sheet.name <- "R1.5.1現在の団体"
-japanJIS <- na.omit(readxl::read_xlsx(data.excel, sheet = sheet.name))
+japanJIS <- readxl::read_xlsx(data.excel, sheet = sheet.name)
 
 japanJIS <- dplyr::rename(japanJIS, jis_code = 団体コード,
                           prefecture = "都道府県名\r\n（漢字）",

@@ -88,13 +88,20 @@ jaddress_jiscode("鳥取市")
 jaddress_jiscode("美里町")
 ```
 
-都道府県名のみを入力すると、都道府県コード2桁と0000の6桁のコードを返します。都道府県名のみを入力して2桁の都道府県コードのみを出力したい場合は、`jis = "pref"`
+都道府県名のみを入力すると、都道府県コード2桁と000の5桁のコードを返します。都道府県名のみを入力して2桁の都道府県コードのみを出力したい場合は、`jis = "pref"`
 としてください。
 
 ```{r}
 jaddress_jiscode("埼玉県")
 jaddress_jiscode("埼玉県", jis = "pref")
 ```
+
+引数で`check.digit = TRUE`とすると、チェックディジットも表示されます。
+
+```{r}
+jaddress_jiscode("沖縄県那覇市", check.digit = TRUE)
+```
+
 
 ## Notice
 
