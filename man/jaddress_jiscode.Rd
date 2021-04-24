@@ -27,3 +27,10 @@ Source: Ministry of Internal Affairs and Communications website, National Local 
 The copyright of the data published by the Ministry of Internal Affairs and Communications (MIC) on its website belongs to the Ministry of Internal Affairs and Communications (MIC), but processing and redistribution are permitted within a certain range.
 For details, please refer to the web page of the Ministry of Internal Affairs and Communications.
 }
+\examples{
+jaddress_jiscode("\u5317\u6d77\u9053\u6a3a\u6238\u90e1\u6708\u5f62\u753a1219\u756a\u5730")
+jaddress_jiscode("\u57fc\u7389\u770c")
+jaddress_jiscode("\u57fc\u7389\u770c", jis = "pref")
+jaddress_jiscode("\u6c96\u7e04\u770c\u90a3\u8987\u5e02", check.digit = TRUE)
+
+}

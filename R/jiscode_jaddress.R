@@ -19,6 +19,12 @@
 #' The copyright of the data published by the Ministry of Internal Affairs and Communications (MIC) on its website belongs to the Ministry of Internal Affairs and Communications (MIC), but processing and redistribution are permitted within a certain range.
 #' For details, please refer to the web page of the Ministry of Internal Affairs and Communications.
 #'
+#' @examples
+#' jiscode_jaddress("20413")
+#' jiscode_jaddress("20413", jis = "city")
+#' jiscode_jaddress("20413", jis = "pref")
+#' jiscode_jaddress("20")
+#' jiscode_jaddress("20", jis = "city")
 #' @export
 
 jiscode_jaddress <- function(x, jis = c("all", "city", "pref")){
