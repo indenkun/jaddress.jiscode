@@ -139,7 +139,7 @@ jiscode_jaddress("０１")
 
 ``` r
 # 全角数字で構成されたデータを半角数字に変換して都道府県市区町村名を求める例
-example.data <- c("１３１１６４", "０４２１３７")
+example.data <- c("１３１１６", "０４２１３")
 require(stringi)
 #> Loading required package: stringi
 example.data <- stri_trans_general(example.data, "Fullwidth-Halfwidth")
@@ -150,11 +150,11 @@ jiscode_jaddress(example.data)
 デフォルトでは都道府県+市区町村名となっていますが、`jis = "city"`とすると市区町村名のみ、`jis = "pref"`とすると都道府県名のみを出力するようにできます。
 
 ``` r
-jiscode_jaddress("204137")
+jiscode_jaddress("20413")
 #> [1] "長野県天龍村"
-jiscode_jaddress("204137", jis = "city")
+jiscode_jaddress("20413", jis = "city")
 #> [1] "天龍村"
-jiscode_jaddress("204137", jis = "pref")
+jiscode_jaddress("20413", jis = "pref")
 #> [1] "長野県"
 ```
 
